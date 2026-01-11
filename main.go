@@ -17,6 +17,8 @@ var (
 	rngMu                 sync.Mutex
 )
 
+const listenAddr = "127.0.0.21:53"
+
 // DNS cache entry with expiration
 type cacheEntry struct {
 	response  *dns.Msg
@@ -220,10 +222,10 @@ func main() {
 	// UDP
 	go func() {
 		server := &dns.Server{
-			Addr: ":5353",
+			Addr: listenAddr,
 			Net:  "udp",
 		}
-		log.Println("DNS server started on UDP :5353")
+		log.Printf("DNS server started on UDP %s", listenAddr)
 		if err := server.ListenAndServe(); err != nil {
 			log.Fatalf("UDP server failed: %v", err)
 		}
@@ -231,10 +233,10 @@ func main() {
 
 	// TCP
 	server := &dns.Server{
-		Addr: ":5353",
+		Addr: listenAddr,
 		Net:  "tcp",
 	}
-	log.Println("DNS server started on TCP :5353")
+	log.Printf("DNS server started on TCP %s", listenAddr)
 	if err := server.ListenAndServe(); err != nil {
 		log.Fatalf("TCP server failed: %v", err)
 	}
