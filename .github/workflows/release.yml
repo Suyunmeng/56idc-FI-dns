@@ -43,7 +43,7 @@ jobs:
           CGO_ENABLED: 0
         run: |
           go mod download
-          go build -ldflags="-s -w" -trimpath -o ix-sparkvm-dns .
+          go build -ldflags="-s -w" -trimpath -o 56idc-fi-dns .
           
       - name: Package binary
         run: |
